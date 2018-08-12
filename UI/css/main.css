@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: darkgrey;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px;
+}
+
+header {
+    background-color: white;
+    padding: 30px;
+    text-align: center
+}
