@@ -18,14 +18,32 @@
             </form>
         </div>
         <div class="header-right">
-            <a href="#">Sign Up</a>
-            <a href="#">Log In</a>
+            <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Signup.html">Sign Up</a>
+            <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/LogIn.html">Log In</a>
         </div>
     </div>
     <div class="nav-bar_1">
-        <a href="#">Recent</a>
-        <a href="#">Popular</a>
-        <a href="#">Ask a Question</a>
+        <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Front.html">Recent</a>
+        <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Front.html">Popular</a>
+        <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Question.html">Ask a Question</a>
+    </div>
+    <div class="qn">
+        <h2>Question Title</h2>
+        <p>How do you unstage all commits using the terminal?</p>
+    </div>
+    <div class="answers">
+        <h2>Answers</h2>
+        <p>I'm afraid that the first of those command lines unconditionally deleted from the working copy all the files that are in git's staging area. The second one unstaged all the files that were tracked but have now been deleted. Unfortunately this means that you will have lost any uncommitted modifications to those files. If you want to get your working copy and index back to how they were at the last commit, you can (carefully) use the following command:</p>
+        <form>
+            <button type="submit">Up-vote</button>
+            <button type="submit">Down-vote</button>
+            <button type="submit">Accept</button>
+        </form>
+    </div>
+    <div class="comment">
+        <h2>Comment:</h2>
+        <textarea name="comment_details" id="body_comment" placeholder="Details" rows="10" cols="100" required></textarea>
+        <button type="button" name="submit_button">submit</button>
     </div>
 </body>
 </html>
