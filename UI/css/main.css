@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-.header, .nav-bar_1 {
+.header {
     overflow: hidden;
     background-color: whitesmoke;
     padding: 20px 10px;
@@ -72,6 +72,10 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 5%;
 }
 
 .nav-bar_1 a {
@@ -79,6 +83,20 @@ body {
     color: #333300;
     border-radius: 4px;
     padding: 7px; 
+ }
+
+ .qn-table table {
+     background-color: whitesmoke;
+     border-collapse: collapse;
+     width: 90%;
+     margin-left: 5%;
+     margin-right: 5%;
+     color: #333300;
+ }
+
+ .qn-table table tr {
+     border: 1px solid darkgrey;
+     padding: 8px;
  }
 
 @media screen and (max-width: 600px) {
