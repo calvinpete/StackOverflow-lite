@@ -99,8 +99,9 @@ body {
      padding: 8px;
  }
 
- h2, p, label {
+ td a, h2, p, label {
     color: #333300;
+    text-decoration: none;
  }
 
 .qn, .answers, .accept, .comment {
