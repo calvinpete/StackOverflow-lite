@@ -1,3 +1,4 @@
+/* Use of box-sizing and float in header and nav-bar for all html files*/
 * {
     box-sizing: border-box;
 }
@@ -49,6 +50,7 @@ body {
     color: white;
     cursor: pointer;
 }
+/* Use of hover for all buttons in all html files*/
 .search_box button:hover, .answers form button:hover, .comment button:hover, .post_answer button:hover{
     background: #da0b0b;
 }
@@ -85,6 +87,8 @@ body {
     padding: 7px; 
  }
 
+ /* Use of tables for the Front.html*/
+
  .qn-table table {
      background-color: whitesmoke;
      border-collapse: collapse;
@@ -103,7 +107,7 @@ body {
     color: #333300;
     text-decoration: none;
  }
-
+/* Use of box-sizing and flex for the Answers.html and Front.html*/
 .qn, .answers, .accept, .comment, .post_answer {
     box-sizing: border-box;
     border-radius: 4px;
@@ -123,6 +127,26 @@ body {
     cursor: pointer;
 }
 
+/* Use of columns and float for the Userprofile.html*/
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.column.side {
+    width: 25%;
+}
+
+.column.middle {
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 @media screen and (max-width: 600px) {
     .header a, .header .search_box input[type=text], .header .search_box button {
       float: none;
@@ -135,5 +159,8 @@ body {
     }
     .header-right {
       float: none;
+    }
+    .column.side, .column.middle {
+        width: 100%;
     }
 }
