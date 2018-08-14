@@ -51,7 +51,7 @@ body {
     cursor: pointer;
 }
 /* Use of hover for all buttons in all html files*/
-.search_box button:hover, .column_middle form button:hover, .answers form button:hover, .comment button:hover, .post_answer button:hover{
+.search_box button:hover, .column_middle form button:hover, .grid-item form button:hover, .answers form button:hover, .comment button:hover, .post_answer button:hover {
     background: #da0b0b;
 }
 
@@ -85,28 +85,36 @@ body {
     color: #333300;
     border-radius: 4px;
     padding: 7px; 
- }
+}
 
- /* Use of tables for the Front.html*/
+ /* Use of grid for the Front.html*/
+.questions-grid {
+    display: grid;
+    grid-row-gap: 20px;
+    /* width: 650px;
+    padding: 10px; */
+    
+}
 
- .qn-table table {
-     background-color: whitesmoke;
-     border-collapse: collapse;
-     width: 90%;
-     margin-left: 5%;
-     margin-right: 5%;
-     color: #333300;
- }
-
- .qn-table table tr {
-     border: 1px solid darkgrey;
-     padding: 8px;
- }
-
- td a, h2, p, label, h3 {
+.grid-item {
+    background-color: whitesmoke;
+    border: 1px solid rgba(0, 0, 0, 0.8);
     color: #333300;
-    text-decoration: none;
- }
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 5px;
+    justify-self: center;
+    align-self: center;
+    width: 70%;
+}
+  
+.grid-item p, .grid-item h3 {
+    color: black;
+    font-size: 16px;
+    text-align: left;
+}
+
 /* Use of box-sizing and flex for the Answers.html and Front.html*/
 .qn, .answers, .accept, .comment, .post_answer {
     box-sizing: border-box;
@@ -116,7 +124,8 @@ body {
     flex-direction: column;
 } 
 
-.column_middle form button,.answers form button, .comment button, .post_answer button{
+/*styling buttons in all html files*/
+.column_middle form button, .grid-item form button, .answers form button, .comment button, .post_answer button{
     border-radius: 4px;
     border: none;
     padding: 10px;

@@ -27,29 +27,43 @@
         <a href="#">Popular</a>
         <a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Question.html">Ask a Question</a>
     </div>
-    <div class="qn-table">
-        <table>
-            <tr>
-                <th>Questions</th>
-                <th>Answers</th>
-                <th>Time of Post</th>
-            </tr>
-            <tr>
-                <td><a href="/home/calvin/Documents/Test Practice/Python/StackOverflow/StackOverflow-lite/UI/Answers.html" >How do you unstage all commits using the terminal?</a></td>
-                <td>12</td>
-                <td><time datetime="11/08/2018 20:00">Asked 20 hours ago</time></td>
-            </tr>
-            <tr>
-                <td>How do you update the coveralls badge on gihub after a successful build of the tests?</td>
-                <td>5</td>
-                <td><time datetime="13/08/2018 08:00">Asked 1 hours ago</time></td>
-            </tr>
-            <tr>
-                <td>How do unstage all commits using the terminal?</td>
-                <td>22</td>
-                <td><time datetime="08/08/2018 10:00">Asked 5 days ago</time></td>
-            </tr>
-        </table>
+    <div class="questions-grid">
+        <div class="grid-item">
+            <p>How do you unstage all commits using the terminal?</p>
+            <p>I accidentally added a lot of temporary files using git add -A.</p>
+            <p>I managed to unstage the files using the following commands and managed to remove the dirty index.</p>
+            <p>git ls-files -z | xargs -0 rm -f
+            <p>diff --name-only --diff-filter=D -z | xargs -0 git rm --cached</p> 
+            <p>The above commands are listed in the git help rm. But sadly, my files were also deleted on execution, even though I had given cache option. How can I clear the index without losing the content? Also it would be helpful if someone can explain the way this pipe operation works.</p> 
+            <form>
+                <button type="submit">Answers</button>
+                <button type="submit">Post an answer</button>
+            </form>
+        </div>
+        <div class="grid-item">
+            <p>How do you unstage all commits using the terminal?</p>
+            <p>I accidentally added a lot of temporary files using git add -A.</p>
+            <p>I managed to unstage the files using the following commands and managed to remove the dirty index.</p>
+            <p>git ls-files -z | xargs -0 rm -f
+            <p>diff --name-only --diff-filter=D -z | xargs -0 git rm --cached</p> 
+            <p>The above commands are listed in the git help rm. But sadly, my files were also deleted on execution, even though I had given cache option. How can I clear the index without losing the content? Also it would be helpful if someone can explain the way this pipe operation works.</p> 
+            <form>
+                <button type="submit">Answers</button>
+                <button type="submit">Post an answer</button>
+            </form>
+        </div>
+        <div class="grid-item">
+            <p>How do you unstage all commits using the terminal?</p>
+            <p>I accidentally added a lot of temporary files using git add -A.</p>
+            <p>I managed to unstage the files using the following commands and managed to remove the dirty index.</p>
+            <p>git ls-files -z | xargs -0 rm -f
+            <p>diff --name-only --diff-filter=D -z | xargs -0 git rm --cached</p> 
+            <p>The above commands are listed in the git help rm. But sadly, my files were also deleted on execution, even though I had given cache option. How can I clear the index without losing the content? Also it would be helpful if someone can explain the way this pipe operation works.</p> 
+            <form>
+                <button type="submit">Answers</button>
+                <button type="submit">Post an answer</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
