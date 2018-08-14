@@ -127,6 +127,7 @@ body {
     background-color: whitesmoke;
     display: flex;
     flex-direction: column;
+    padding: 20px;
 } 
 
 /*styling buttons in all html files*/
