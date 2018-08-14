@@ -115,6 +115,11 @@ body {
     text-align: left;
 }
 
+.grid-item form button a {
+    text-decoration: none;
+    color: white;
+}
+
 /* Use of box-sizing and flex for the Answers.html and Front.html*/
 .qn, .answers, .accept, .comment, .post_answer {
     box-sizing: border-box;
