@@ -8,12 +8,28 @@ Clone the project on your local machine for development and testing purposes.
 
 ## Project Links
 
-* <https://calvinpete.github.io/StackOverflow-lite/UI/Front.html>
-* <https://calvinpete.github.io/StackOverflow-lite/UI/Signup.html>
-* <https://calvinpete.github.io/StackOverflow-lite/UI/LogIn.html>
-* <https://calvinpete.github.io/StackOverflow-lite/UI/Question.html>
-* <https://calvinpete.github.io/StackOverflow-lite/UI/Answers.html>
-* <https://calvinpete.github.io/StackOverflow-lite/UI/Userprofile.html>
+Visit: [StackOverflow-lite](https://github.com/calvinpete/StackOverflow-lite.git)
+
+## User Urls
+
+* [Sign up](https://calvinpete.github.io/StackOverflow-lite/UI/Signup.html)
+* [Log In](https://calvinpete.github.io/StackOverflow-lite/UI/LogIn.html)
+* [Home page](https://calvinpete.github.io/StackOverflow-lite/UI/Front.html)
+* [Post an answer](https://calvinpete.github.io/StackOverflow-lite/UI/Post_answer.html)
+* [Ask a question](https://calvinpete.github.io/StackOverflow-lite/UI/Question.html)
+* [Answers](https://calvinpete.github.io/StackOverflow-lite/UI/Answers.html)
+* [User profile](https://calvinpete.github.io/StackOverflow-lite/UI/Userprofile.html)
+
+## Features
+
+* Users can create an account and log in.
+* Users view a list recently asked questions.
+* Users post an answer to a question.
+* Users can post a question.
+* Users view answers to a question.
+* Users can comment, up-vote and down-vote an answer.
+* Users can view all questions or answers posted by the user.
+* Users can delete a question posted.
 
 ## Prerequisites
 
@@ -22,7 +38,7 @@ Clone the project on your local machine for development and testing purposes.
 
 ## Built With
 
-* Html
+* Html5
 * CSS
 
 ## Authors
