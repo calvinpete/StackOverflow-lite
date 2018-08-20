@@ -1,4 +1,3 @@
-
 class Config(object):
     """Parent configuration class that contains general settings
     as default settings for other classes to inherit.
@@ -22,3 +21,11 @@ class ProductionConfig(Config):
     """Configurations for Production."""
     DEBUG = False
     TESTING = False
+
+
+# This dictionary is used to export the environments specified below.
+app_config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig
+}
