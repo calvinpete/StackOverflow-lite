@@ -52,3 +52,23 @@ class QuestionManager(Resource):
 api.add_resource(QuestionManager, '/questions')
 
 
+class SingleQuestionManager(Resource):
+    """This class holds the endpoint to get one question"""
+
+    def get(self, qn_id):
+        """
+        This method receives the id of the question and checks if it matches the qn_id key.
+        Then it returns the value related to the key that matches the received id.
+        Or else it returns an error code 404
+        :param: qn_id
+        :return: question in JSON format
+        """
+        for question in qns_data:
+            if qn_id == qns_data[question].__getattribute__("qn_id"):
+                return jsonify(qns_data[question])
+            else:
+                abort(404)
+
+
+api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
+
