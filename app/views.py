@@ -72,3 +72,23 @@ class SingleQuestionManager(Resource):
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
 
+
+class AnswerManager(Resource):
+    """This class holds the endpoint to post an answer"""
+
+    def post(self, qn_id):
+        """
+        This method checks if id of the question matches the qn_id key.
+        Then it inserts the answer value into the answers list.
+        Or else it returns an error code 404
+        :return: {'message': 'Answer added'}, 201
+        """
+        for question in qns_data:
+            if qn_id == qns_data[question].__getattribute__("qn_id"):
+                qns_data[question].__dict__["answers"].append(request.json['answers'])
+                return jsonify({'message': 'Answer added'}), 201
+        else:
+            abort(404)
+
+
+api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
