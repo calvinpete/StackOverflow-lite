@@ -1,13 +1,17 @@
 from flask import jsonify
 from flask import abort
 from flask_restful import Resource
+from flask_restful import Api
 from flask import Blueprint
 from flask import request
+from flask import make_response
 from app.data import qns_data
 from app.models import QuestionsModel
 
 
-api = Blueprint('api', __name__, url_prefix='/api/v1')
+main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
+
+api = Api(main_blueprint)
 
 
 class QuestionManager(Resource):
@@ -24,7 +28,7 @@ class QuestionManager(Resource):
         """
         questions = []
         for question in qns_data:
-            questions.append(qns_data[question].__getattribute__("qn_title"))
+            questions.append(question.__getattribute__("qn_title"))
         return jsonify(questions)
 
     def post(self):
@@ -46,7 +50,7 @@ class QuestionManager(Resource):
             }
         )
         qns_data.append(question)
-        return jsonify({'message': 'Question added'}), 201
+        return make_response(jsonify({'message': 'Question posted'}), 201)
 
 
 api.add_resource(QuestionManager, '/questions')
@@ -63,11 +67,14 @@ class SingleQuestionManager(Resource):
         :param: qn_id
         :return: question in JSON format
         """
+        single_qn = []
         for question in qns_data:
-            if qn_id == qns_data[question].__getattribute__("qn_id"):
-                return jsonify(qns_data[question])
-            else:
-                abort(404)
+            if question.__getattribute__("qn_id") == qn_id:
+                single_qn.extend((question.__getattribute__("qn_title"), question.__getattribute__("qn_details"),
+                                 question.__getattribute__("answers")))
+                return jsonify(single_qn)
+        else:
+            abort(404)
 
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
@@ -84,9 +91,9 @@ class AnswerManager(Resource):
         :return: {'message': 'Answer added'}, 201
         """
         for question in qns_data:
-            if qn_id == qns_data[question].__getattribute__("qn_id"):
-                qns_data[question].__dict__["answers"].append(request.json['answers'])
-                return jsonify({'message': 'Answer added'}), 201
+            if qn_id == question.__getattribute__("qn_id"):
+                question.__dict__["answers"].append(request.json['answers'])
+                return make_response(jsonify({'message': 'Answer added'}), 201)
         else:
             abort(404)
 

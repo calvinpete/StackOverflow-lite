@@ -3,7 +3,6 @@ class Config(object):
     as default settings for other classes to inherit.
     """
     DEBUG = False
-    SECRET = 'SECRET'
 
 
 class DevelopmentConfig(Config):
@@ -22,10 +21,3 @@ class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
 
-
-# This dictionary is used to export the environments specified below.
-app_config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'production': ProductionConfig
-}
