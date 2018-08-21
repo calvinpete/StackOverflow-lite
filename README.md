@@ -12,13 +12,13 @@ Visit: [StackOverflow-lite](https://github.com/calvinpete/StackOverflow-lite.git
 
 ## User Urls
 
-* [Sign up](https://calvinpete.github.io/StackOverflow-lite/UI/Signup.html)
-* [Log In](https://calvinpete.github.io/StackOverflow-lite/UI/LogIn.html)
-* [Home page](https://calvinpete.github.io/StackOverflow-lite/UI/Front.html)
-* [Post an answer](https://calvinpete.github.io/StackOverflow-lite/UI/Post_answer.html)
-* [Ask a question](https://calvinpete.github.io/StackOverflow-lite/UI/Question.html)
-* [Answers](https://calvinpete.github.io/StackOverflow-lite/UI/Answers.html)
-* [User profile](https://calvinpete.github.io/StackOverflow-lite/UI/Userprofile.html)
+* [Sign up](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Signup.html)
+* [Log In](https://calvinpete.github.io/StackOverflow-lite/UI/templates/LogIn.html)
+* [Home page](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Front.html)
+* [Post an answer](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Post_answer.html)
+* [Ask a question](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Question.html)
+* [Answers](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Answers.html)
+* [User profile](https://calvinpete.github.io/StackOverflow-lite/UI/templates/Userprofile.html)
 
 ## Features
 
