@@ -61,6 +61,13 @@ class FlaskAppTestCase(unittest.TestCase):
                                     data=json.dumps(q_data))
         self.assertEqual(response.status_code, 400)
 
+    def test_invalid_content_type(self):
+        """This tests for an invalid content type of the posted question"""
+        q_data = {"qn_title": "What is blueprint in flask", "qn_details": ""}
+        response = self.client.post("/api/v1/questions", content_type="application/javascript",
+                                    data=json.dumps(q_data))
+        self.assertEqual(response.status_code, 400)
+
 
 if __name__ == "__main__":
     unittest.main()
