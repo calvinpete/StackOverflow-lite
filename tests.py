@@ -39,6 +39,12 @@ class FlaskAppTestCase(unittest.TestCase):
         """This tests instance of a class"""
         self.assertIsInstance(self.qns_data, QuestionsModel)
 
+    def test_all_questions(self):
+        """This tests a get method for get all questions and a response status code is 200"""
+        response = self.client.get("/api/v1/questions", content_type="application/json",
+                                   data=json.dumps(self.qns_data.__getattribute__("qn_title")))
+        self.assertEqual(response.status_code, 200)
+
 
 if __name__ == "__main__":
     unittest.main()
