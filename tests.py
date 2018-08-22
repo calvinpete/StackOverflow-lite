@@ -35,6 +35,10 @@ class FlaskAppTestCase(unittest.TestCase):
         """This tests existence of an app"""
         self.assertFalse(app is None)
 
+    def test_creation(self):
+        """This tests instance of a class"""
+        self.assertIsInstance(self.qns_data, QuestionsModel)
+
 
 if __name__ == "__main__":
     unittest.main()
