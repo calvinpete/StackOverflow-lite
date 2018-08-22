@@ -68,6 +68,14 @@ class FlaskAppTestCase(unittest.TestCase):
                                     data=json.dumps(q_data))
         self.assertEqual(response.status_code, 400)
 
+    def test_single_question(self):
+        """This tests the get method for get a single question"""
+        response = self.client.get("/api/v1/questions/1", content_type="application/json",
+                                   data=json.dumps(self.qns_data.__getattribute__("qn_title"),
+                                                   self.qns_data.__getattribute__("qn_details"),
+                                                   self.qns_data.__getattribute__("answers")))
+        self.assertEqual(response.status_code, 200)
+
 
 if __name__ == "__main__":
     unittest.main()
