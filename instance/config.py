@@ -6,18 +6,18 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
-    """Configurations for Development."""
+    """Configuration settings for Development."""
     DEBUG = True
 
 
 class TestingConfig(Config):
-    """Configurations for Testing."""
+    """Configuration settings for Testing."""
     TESTING = True
     DEBUG = True
 
 
 class ProductionConfig(Config):
-    """Configurations for Production."""
+    """Configuration settings for Production."""
     DEBUG = False
     TESTING = False
 
