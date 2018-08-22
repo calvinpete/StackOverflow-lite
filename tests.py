@@ -45,6 +45,15 @@ class FlaskAppTestCase(unittest.TestCase):
                                    data=json.dumps(self.qns_data.__getattribute__("qn_title")))
         self.assertEqual(response.status_code, 200)
 
+    def test_question_post(self):
+        """This tests a method for post a question and response status code is 201 as well as the response message"""
+        q_data = {"qn_title": "What is JSON?", "qn_details": ""}
+        response = self.client.post("/api/v1/questions", content_type="application/json",
+                                    data=json.dumps(q_data))
+        self.assertEqual(response.status_code, 201)
+        response_message = json.loads(response.data.decode())
+        self.assertIn("Question posted", response_message['message'])
+
 
 if __name__ == "__main__":
     unittest.main()
