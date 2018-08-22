@@ -54,6 +54,13 @@ class FlaskAppTestCase(unittest.TestCase):
         response_message = json.loads(response.data.decode())
         self.assertIn("Question posted", response_message['message'])
 
+    def test_invalid_question(self):
+        """This tests for an invalid posted question"""
+        q_data = {"qn_details": ""}
+        response = self.client.post("/api/v1/questions", content_type="application/json",
+                                    data=json.dumps(q_data))
+        self.assertEqual(response.status_code, 400)
+
 
 if __name__ == "__main__":
     unittest.main()
