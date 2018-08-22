@@ -84,6 +84,15 @@ class FlaskAppTestCase(unittest.TestCase):
                                                    self.qns_data.__getattribute__("answers")))
         self.assertEqual(response.status_code, 404)
 
+    def test_post_answer(self):
+        """This tests the method for post an answer and the status code is 201 as well as the response message"""
+        q_data = {"answers": ["use make_response method"]}
+        response = self.client.post("/api/v1/questions/1/answers", content_type="application/json",
+                                    data=json.dumps(q_data))
+        self.assertEqual(response.status_code, 201)
+        response_message = json.loads(response.data.decode())
+        self.assertEqual("Answer added", response_message['message'])
+
 
 if __name__ == "__main__":
     unittest.main()
