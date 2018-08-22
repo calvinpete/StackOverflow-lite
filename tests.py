@@ -93,6 +93,12 @@ class FlaskAppTestCase(unittest.TestCase):
         response_message = json.loads(response.data.decode())
         self.assertEqual("Answer added", response_message['message'])
 
+    def test_invalid_id_for_answer_post(self):
+        """This tests for an invalid question id used to post an answer"""
+        q_data = {"answers": ["use make_response method"]}
+        response = self.client.post("/api/v1/questions/57/answers", content_type="application/json",
+                                    data=json.dumps(q_data))
+        self.assertEqual(response.status_code, 404)
 
 if __name__ == "__main__":
     unittest.main()
