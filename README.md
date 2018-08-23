@@ -7,13 +7,12 @@ The api endpoints enable you to view all questions, post a question, view a sing
 
 ## Getting Started
 
-To run the application, make sure you have the following installed.
+To run the application, make sure you have the following installed on your local machine.
 
 ### Prerequisites
 
 ```
 Git
-Python IDE
 Flask
 Flask Restful
 Virtual Enviroment
@@ -21,13 +20,13 @@ Virtual Enviroment
 
 ### Starting the application
 
-Clone the project
+Clone the project by running this in the terminal
 
 ```
-https://github.com/calvinpete/StackOverflow-lite/tree/API
+git clone https://github.com/calvinpete/StackOverflow-lite/tree/API
 ```
 
-Activate the virtualenv
+Activate the virtualenv by running this command in the terminal
 
 ```
 source venv/bin/activate
@@ -39,7 +38,7 @@ Install the packages.
 pip install -r requirements.txt
 ```
 
-Run the application
+Run the application in the terminal
 
 ```
 python run.py
@@ -47,13 +46,15 @@ python run.py
 
 ## Running the tests
 
+Run this command in the terminal
+
 ```
 pytest tests.py
 ```
 
 ### Running tests with coverage
 
-You run tests with coverage by running this command in the terminal
+You can run tests with coverage by running this command in the terminal
 
 ```
 nosetests --with-coverage --cover-package=app
