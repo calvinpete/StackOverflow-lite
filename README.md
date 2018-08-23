@@ -5,53 +5,87 @@
 
 <a href="https://codeclimate.com/github/calvinpete/StackOverflow-lite/maintainability"><img src="https://api.codeclimate.com/v1/badges/c55bf3e0bac3e3a2b0e9/maintainability" /></a>
 
-# StackOverflow-lite
+# StackOverflow-lite API Endpoints
 
-StackOverflow-lite is a platform where people can ask questions and provide answers.
+The api endpoints enable you to view all questions, post a question, view a single question and post an answer to a question.
 
 ## Getting Started
 
-Clone the project on your local machine for development and testing purposes.
+To run the application, make sure you have the following installed.
 
-## Project Links
+### Prerequisites
 
-Visit: [StackOverflow-lite](https://github.com/calvinpete/StackOverflow-lite.git)
+```
+Git
+Python IDE
+Flask
+Flask Restful
+Virtual Enviroment
+```
 
-## User Urls
+### Starting the application
 
-* [Sign up](https://calvinpete.github.io/StackOverflow-lite/UI/Signup.html)
-* [Log In](https://calvinpete.github.io/StackOverflow-lite/UI/LogIn.html)
-* [Home page](https://calvinpete.github.io/StackOverflow-lite/UI/Front.html)
-* [Post an answer](https://calvinpete.github.io/StackOverflow-lite/UI/Post_answer.html)
-* [Ask a question](https://calvinpete.github.io/StackOverflow-lite/UI/Question.html)
-* [Answers](https://calvinpete.github.io/StackOverflow-lite/UI/Answers.html)
-* [User profile](https://calvinpete.github.io/StackOverflow-lite/UI/Userprofile.html)
+Clone the project
 
-## Features
+```
+https://github.com/calvinpete/StackOverflow-lite/tree/API
+```
 
-* Users can create an account and log in.
-* Users view a list recently asked questions.
-* Users post an answer to a question.
-* Users can post a question.
-* Users view answers to a question.
-* Users can comment, up-vote and down-vote an answer.
-* Users can view all questions or answers posted by the user.
-* Users can delete a question posted.
+Activate the virtualenv
 
-## Prerequisites
+```
+source venv/bin/activate
+```
 
-* Web browser
-* Internet
+Install the packages.
+
+```
+pip install -r requirements.txt
+```
+
+Run the application
+
+```
+python run.py
+```
+
+## Running the tests
+
+```
+pytest tests.py
+```
+
+### Running tests with coverage
+
+You run tests with coverage by running this command in the terminal
+
+```
+nosetests --with-coverage --cover-package=app
+```
+
+### Features
+
+|               Endpoint                 |          Functionality      |
+| -------------------------------------- |:---------------------------:|
+| GET /questions                         | Fetch all questions         |
+| GET /questions/<questionId>            | Fetch a specific question   |
+| POST /questions/<questionId>/answers   | Add a question              |
+| POST /questions/<questionId>/answers   | Add an answer               |
+
+
+## Deployment
+
+The app is deployed on this [link](https://stackoverflowlitev1-api.herokuapp.com/api/v1/questions)
 
 ## Built With
 
-* Html5
-* CSS
+* [Python](https://www.python.org/) - General Purpose Language
+* [Flask](http://flask.pocoo.org/) - Python Micro Web Framework
 
 ## Authors
 
-Calvin Tinka
+**Calvin Tinka**
 
 ## License
 
-This application is opensource.
+This app is open source hence free to all users
