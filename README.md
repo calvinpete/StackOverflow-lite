@@ -1,3 +1,6 @@
+https://travis-ci.org/calvinpete/StackOverflow-lite.svg?branch=API
+
+
 # StackOverflow-lite
 
 StackOverflow-lite is a platform where people can ask questions and provide answers.
