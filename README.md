@@ -1,6 +1,7 @@
 
 [![Build Status](https://travis-ci.org/calvinpete/StackOverflow-lite.svg?branch=API)](https://travis-ci.org/calvinpete/StackOverflow-lite)
 
+[![Coverage Status](https://coveralls.io/repos/github/calvinpete/StackOverflow-lite/badge.svg?branch=API)](https://coveralls.io/github/calvinpete/StackOverflow-lite?branch=API)
 
 # StackOverflow-lite
 
