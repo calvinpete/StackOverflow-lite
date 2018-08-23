@@ -1,4 +1,5 @@
-https://travis-ci.org/calvinpete/StackOverflow-lite.svg?branch=API
+h
+[![Build Status](https://travis-ci.org/calvinpete/StackOverflow-lite.svg?branch=API)](https://travis-ci.org/calvinpete/StackOverflow-lite)
 
 
 # StackOverflow-lite
