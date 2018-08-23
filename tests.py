@@ -78,10 +78,7 @@ class FlaskAppTestCase(unittest.TestCase):
 
     def test_invalid_question_id(self):
         """This tests for an invalid question id used to get a question"""
-        response = self.client.get("/api/v1/questions/100", content_type="application/json",
-                                   data=json.dumps(self.qns_data.__getattribute__("qn_title"),
-                                                   self.qns_data.__getattribute__("qn_details"),
-                                                   self.qns_data.__getattribute__("answers")))
+        response = self.client.get("/api/v1/questions/100")
         self.assertEqual(response.status_code, 404)
 
     def test_post_answer(self):
