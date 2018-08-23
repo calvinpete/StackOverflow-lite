@@ -3,6 +3,8 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/calvinpete/StackOverflow-lite/badge.svg?branch=API)](https://coveralls.io/github/calvinpete/StackOverflow-lite?branch=API)
 
+<a href="https://codeclimate.com/github/calvinpete/StackOverflow-lite/maintainability"><img src="https://api.codeclimate.com/v1/badges/c55bf3e0bac3e3a2b0e9/maintainability" /></a>
+
 # StackOverflow-lite
 
 StackOverflow-lite is a platform where people can ask questions and provide answers.
