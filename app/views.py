@@ -1,17 +1,17 @@
-from flask import jsonify
-from flask import abort
 from flask_restful import Resource
 from flask_restful import Api
 from flask import Blueprint
 from flask import request
-from flask import make_response
 from app.data import qns_data
+from app.errors import *
 from app.models import QuestionsModel
+
+# import json
 
 
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
-api = Api(main_blueprint)
+api = Api(main_blueprint, errors=errors)
 
 
 class QuestionManager(Resource):
@@ -39,8 +39,9 @@ class QuestionManager(Resource):
         and an empty list of answers to create a question be appended to the qns_data list.
         :return: {'message': 'Question added'}, 201
         """
-        if not request.json or 'qn_title' not in request.json:
-            abort(400)
+        if "qn_title" not in request.json:
+            return question_bad_request("Error")
+
         question = QuestionsModel(
             qns={
                 'qn_id': len(qns_data) + 1,
@@ -71,10 +72,10 @@ class SingleQuestionManager(Resource):
         for question in qns_data:
             if question.__getattribute__("qn_id") == qn_id:
                 single_qn.extend((question.__getattribute__("qn_title"), question.__getattribute__("qn_details"),
-                                 question.__getattribute__("answers")))
+                                  question.__getattribute__("answers")))
                 return jsonify(single_qn)
         else:
-            abort(404)
+            return question_not_found("Error")
 
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
@@ -90,12 +91,16 @@ class AnswerManager(Resource):
         Or else it returns an error code 404
         :return: {'message': 'Answer added'}, 201
         """
+        data = request.get_json()
+        answer = data["answers"]
+        if answer.isspace() or answer == "":
+            return answer_bad_request("Error")
         for question in qns_data:
             if qn_id == question.__getattribute__("qn_id"):
                 question.__dict__["answers"].append(request.json['answers'])
                 return make_response(jsonify({'message': 'Answer added'}), 201)
         else:
-            abort(404)
+            return question_not_found("Error")
 
 
 api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
