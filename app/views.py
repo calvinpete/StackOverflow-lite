@@ -67,9 +67,7 @@ class AnswerManager(Resource):
 
     def post(self, qn_id):
         """
-        This method checks if id of the question matches the qn_id key.
-        Then it inserts the answer value into the answers list.
-        Or else it returns an error code 404
+        This method receives a question id then inserts the answer into a database under a question id
         :return: {'message': 'Answer added'}, 201
         """
         # data = request.get_json()
