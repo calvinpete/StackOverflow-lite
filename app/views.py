@@ -4,10 +4,11 @@ from flask import Blueprint
 from flask import request
 from app.data import qns_data
 from app.errors import *
-from app.models import QuestionsModel
+# from app.models import QuestionsModel
+from database import DatabaseConnection
 
 # import json
-
+data = DatabaseConnection()
 
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -26,10 +27,14 @@ class QuestionManager(Resource):
         returning a list of questions
         :return: questions
         """
-        questions = []
-        for question in qns_data:
-            questions.append(question.__getattribute__("qn_title"))
-        return jsonify(questions)
+        questions = data.select_all_questions()
+        for row in questions:
+            return jsonify(
+                {
+                    "qn_title": row[1],
+                    "qn_details": row[2]
+                }
+            )
 
     def post(self):
         """
@@ -39,18 +44,11 @@ class QuestionManager(Resource):
         and an empty list of answers to create a question be appended to the qns_data list.
         :return: {'message': 'Question added'}, 201
         """
-        if "qn_title" not in request.json:
-            return question_bad_request("Error")
-
-        question = QuestionsModel(
-            qns={
-                'qn_id': len(qns_data) + 1,
-                'qn_title': request.json['qn_title'],
-                'qn_details': request.json.get('qn_details', ""),
-                'answers': []
-            }
-        )
-        qns_data.append(question)
+        # if "qn_title" not in request.json:
+        #     return question_bad_request("Error")
+        qn_title = request.json['qn_title']
+        qn_details = request.json.get('qn_details', "")
+        data.insert_questions(qn_title, qn_details)
         return make_response(jsonify({'message': 'Question posted'}), 201)
 
 

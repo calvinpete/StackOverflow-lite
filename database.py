@@ -54,7 +54,6 @@ class DatabaseConnection(object):
         insert_question = "INSERT INTO questions(question_title, question_details) VALUES(%s, %s);"
         self.cursor.execute(insert_question, (question_title, question_details))
         self.connection.commit()
-        print ("Question successfully created")
         self.connection.close()
 
     def insert_answers(self, answer, qn_id):
@@ -101,5 +100,5 @@ class DatabaseConnection(object):
         self.connection.close()
 
 
-if __name__ == "__main__":
-    database = DatabaseConnection()
+# if __name__ == "__main__":
+#     database = DatabaseConnection()
