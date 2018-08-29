@@ -2,6 +2,7 @@ import psycopg2
 
 
 class DatabaseConnection(object):
+    """This class holds all methods that create read update and delete data in the database"""
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
