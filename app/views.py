@@ -23,18 +23,16 @@ class QuestionManager(Resource):
 
     def get(self):
         """
-        This method initialises an empty list then it appends question titles
-        returning a list of questions
+        This method selects all questions from the database and returns them in a dictionary
         :return: questions
         """
         questions = data.select_all_questions()
+        all_questions = {}
         for row in questions:
-            return jsonify(
-                {
-                    "qn_title": row[1],
-                    "qn_details": row[2]
-                }
-            )
+            all_questions[row[0]] = {"qn_title": row[1],
+                                     "qn_details": row[2]
+                                     }
+        return jsonify(all_questions)
 
     def post(self):
         """
