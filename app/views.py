@@ -36,10 +36,8 @@ class QuestionManager(Resource):
 
     def post(self):
         """
-        This method checks if the request data isn't there or is there but a qn_title is missing
-        then return an error code 400.
-        Then assigns a qn_id using length of qns_data plus one while tolerating a missing qn_details field
-        and an empty list of answers to create a question be appended to the qns_data list.
+        This method receives the question title as well as its details from the request
+        then inserts them into a database.
         :return: {'message': 'Question added'}, 201
         """
         # if "qn_title" not in request.json:
