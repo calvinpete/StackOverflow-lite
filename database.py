@@ -3,10 +3,12 @@ import psycopg2
 
 class DatabaseConnection(object):
     """This class holds all methods that create read update and delete data in the database"""
+
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
                 database="run", user="calvin", password="310892", host="127.0.0.1", port="5432")
+            self.connection.autocommit = True
             self.cursor = self.connection.cursor()
             print("Yes")
         except:
@@ -19,7 +21,7 @@ class DatabaseConnection(object):
         self.cursor.execute(user_table)
         self.connection.commit()
         print ("users table successfully created")
-        self.connection.close()
+        # self.connection.close()
 
     def create_table_questions(self):
         """create questions table"""
@@ -29,7 +31,7 @@ class DatabaseConnection(object):
         self.cursor.execute(question_table)
         self.connection.commit()
         print("questions table successfully created")
-        self.connection.close()
+        # self.connection.close()
 
     def create_table_answers(self):
         """create answers table"""
@@ -38,8 +40,7 @@ class DatabaseConnection(object):
                         "question_id INT NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE)"
         self.cursor.execute(answers_table)
         self.connection.commit()
-        print ("answers table successfully created")
-        self.connection.close()
+        # self.connection.close()
 
     def insert_users(self, username, password):
         """create users"""
@@ -47,30 +48,34 @@ class DatabaseConnection(object):
         self.cursor.execute(insert_user, (username, password))
         self.connection.commit()
         print ("User successfully added")
-        self.connection.close()
+        # self.connection.close()
 
     def insert_questions(self, question_title, question_details):
         """create questions"""
         insert_question = "INSERT INTO questions(question_title, question_details) VALUES(%s, %s);"
         self.cursor.execute(insert_question, (question_title, question_details))
         self.connection.commit()
-        self.connection.close()
+        # self.connection.close()
 
     def insert_answers(self, answer, qn_id):
         """create answers"""
         insert_answers = "INSERT INTO answer_table(answer, question_id) VALUES(%s, %s);"
         self.cursor.execute(insert_answers, (answer, qn_id))
         self.connection.commit()
-        print ("Answers successfully created")
-        self.connection.close()
+        # self.connection.close()
 
     def select_all_questions(self):
         """get all questions"""
         select_questions = "SELECT * FROM questions;"
         self.cursor.execute(select_questions)
         all_questions = self.cursor.fetchall()
-        return all_questions
-        self.connection.close()
+        questions = {}
+        for row in all_questions:
+            questions[row[0]] = {"qn_title": row[1],
+                                 "qn_details": row[2]
+                                 }
+        return questions
+        # self.connection.close()
 
     def select_one_question(self, qn_id):
         """get one question"""
@@ -80,8 +85,16 @@ class DatabaseConnection(object):
                           "WHERE questions.question_id = %s;"
         self.cursor.execute(select_question, [qn_id])
         a_question = self.cursor.fetchall()
-        return a_question
-        self.connection.close()
+        answer_list = []
+        for row in a_question:
+            answer_list.append({"answer": row[2], "status": row[3]})
+            single_qn = {
+                "qn_title": row[0],
+                "qn_details": row[1],
+                "answers": answer_list
+            }
+        return single_qn
+        # self.connection.close()
 
     def delete_question(self, qn_id):
         """delete questions"""
@@ -89,7 +102,7 @@ class DatabaseConnection(object):
         self.cursor.execute(delete_question, [qn_id])
         self.connection.commit()
         print ("Question successfully deleted")
-        self.connection.close()
+        # self.connection.close()
 
     def mark_answer(self, answer_id):
         """mark an answer as preferred"""
@@ -97,8 +110,8 @@ class DatabaseConnection(object):
         self.cursor.execute(update_answer, [answer_id])
         self.connection.commit()
         print ("Answer successfully marked")
-        self.connection.close()
+        # self.connection.close()
 
-
+#
 # if __name__ == "__main__":
 #     database = DatabaseConnection()

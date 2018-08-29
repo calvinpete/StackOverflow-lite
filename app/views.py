@@ -26,13 +26,7 @@ class QuestionManager(Resource):
         This method selects all questions from the database and returns them in a dictionary
         :return: questions
         """
-        questions = data.select_all_questions()
-        all_questions = {}
-        for row in questions:
-            all_questions[row[0]] = {"qn_title": row[1],
-                                     "qn_details": row[2]
-                                     }
-        return jsonify(all_questions)
+        return jsonify(data.select_all_questions())
 
     def post(self):
         """
@@ -62,14 +56,7 @@ class SingleQuestionManager(Resource):
         :param: qn_id
         :return: question in JSON format
         """
-        single_qn = []
-        for question in qns_data:
-            if question.__getattribute__("qn_id") == qn_id:
-                single_qn.extend((question.__getattribute__("qn_title"), question.__getattribute__("qn_details"),
-                                  question.__getattribute__("answers")))
-                return jsonify(single_qn)
-        else:
-            return question_not_found("Error")
+        return jsonify(data.select_one_question(qn_id))
 
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
@@ -85,16 +72,19 @@ class AnswerManager(Resource):
         Or else it returns an error code 404
         :return: {'message': 'Answer added'}, 201
         """
-        data = request.get_json()
-        answer = data["answers"]
-        if answer.isspace() or answer == "":
-            return answer_bad_request("Error")
-        for question in qns_data:
-            if qn_id == question.__getattribute__("qn_id"):
-                question.__dict__["answers"].append(request.json['answers'])
-                return make_response(jsonify({'message': 'Answer added'}), 201)
-        else:
-            return question_not_found("Error")
+        # data = request.get_json()
+        # answer = data["answers"]
+        # if answer.isspace() or answer == "":
+        #     return answer_bad_request("Error")
+        # for question in qns_data:
+        #     if qn_id == question.__getattribute__("qn_id"):
+        #         question.__dict__["answers"].append(request.json['answers'])
+        #         return make_response(jsonify({'message': 'Answer added'}), 201)
+        # else:
+        #     return question_not_found("Error")
+        answer = request.json['answers']
+        data.insert_answers(answer, qn_id)
+        return make_response(jsonify({'message': 'Answer added'}), 201)
 
 
 api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
