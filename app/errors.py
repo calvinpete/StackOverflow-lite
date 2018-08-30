@@ -12,15 +12,6 @@ errors = {
         "message": "This page does not exist",
         "status": 404
     },
-    'UserExists': {
-        'message': "A user with that username already exists.",
-        'status': 409,
-    },
-    'ResourceDoesNotExist': {
-        'message': "A resource with that ID no longer exists.",
-        'status': 410,
-        'extra': "Any extra information you want.",
-    },
 }
 
 
@@ -71,6 +62,6 @@ def user_exists(message):
     :param message:
     :return response:
     """
-    response = make_response(jsonify({message: "username is already taken"}), 409)
+    response = make_response(jsonify({message: "user already exists"}), 409)
     return response
 
