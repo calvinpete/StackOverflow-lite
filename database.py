@@ -17,6 +17,7 @@ class DatabaseConnection(object):
     def create_table_users(self):
         """ create user table"""
         user_table = "CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, " \
+                     "email_address VARCHAR(255) UNIQUE NOT NULL, " \
                      "password VARCHAR(50) NOT NULL);"
         self.cursor.execute(user_table)
         self.connection.commit()
@@ -42,10 +43,10 @@ class DatabaseConnection(object):
         self.connection.commit()
         # self.connection.close()
 
-    def insert_users(self, username, password):
+    def insert_users(self, username, emailaddress, password):
         """create users"""
-        insert_user = "INSERT INTO users(username, password) VALUES(%s, %s);"
-        self.cursor.execute(insert_user, (username, password))
+        insert_user = "INSERT INTO users(username, emailaddress, password) VALUES(%s, %s, %s);"
+        self.cursor.execute(insert_user, (username, emailaddress, password))
         self.connection.commit()
         print ("User successfully added")
         # self.connection.close()
@@ -115,3 +116,4 @@ class DatabaseConnection(object):
 #
 # if __name__ == "__main__":
 #     database = DatabaseConnection()
+#     database.create_table_users()
