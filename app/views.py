@@ -3,9 +3,7 @@ from flask_restful import Api
 from flask import Flask
 from flask import Blueprint
 from flask import request
-# from app.data import qns_data
 from app.errors import *
-# from app.models import QuestionsModel
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
@@ -21,7 +19,7 @@ data_storage = DatabaseConnection()
 
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
-api = Api(main_blueprint, errors=errors)
+api = Api(main_blueprint, errors=errors, catch_all_404s=True)
 
 
 # def token_required(f):
@@ -53,26 +51,18 @@ class NewUserManager(Resource):
         username = request.json["username"]
         email_address = request.json["emailaddress"]
         hashed_password = generate_password_hash(request.json["password"])
-        data_storage.insert_users(username, email_address, hashed_password)
-        return make_response(jsonify({'message': 'New User created'}), 201)
+        return data_storage.insert_users(username, email_address, hashed_password)
 
 
 api.add_resource(NewUserManager, '/auth/signup')
 
 
 class UserManager(Resource):
-    """This class holds the endpoint to post log in details
-    """
+    """This class holds the endpoint to log in a user """
 
     def post(self):
         """This checks the username and password used to access then returns a token if they match """
         authorize = request.authorization
-
-        # user = data.select_users()
-        # for key in data.select_users():
-        #     if authorize.username != key:
-        #         return make_response(jsonify({"Error": "User not foundout"}), 401)
-
         for key, value in data_storage.select_users().items():
             if authorize.username == key and check_password_hash(value, authorize.password):
                 token = jwt.encode({"username": authorize.username,
@@ -105,8 +95,9 @@ class QuestionManager(Resource):
         then inserts them into a database.
         :return: {'message': 'Question added'}, 201
         """
-        # if "qn_title" not in request.json:
-        #     return question_bad_request("Error")
+        if "qn_title" not in request.json or request.json["qn_title"] == "":
+            return question_bad_request("Error")
+
         qn_title = request.json['qn_title']
         qn_details = request.json.get('qn_details', "")
         data_storage.insert_questions(qn_title, qn_details)
@@ -127,16 +118,16 @@ class SingleQuestionManager(Resource):
         :param: qn_id
         :return: question in JSON format
         """
-        return jsonify(data_storage.select_one_question(qn_id))
+        return data_storage.select_one_question(qn_id)
 
     def delete(self, qn_id):
         """
-        This method receives an id of the question then deletes the question from the database
+        This method receives an id of the question then
+        through the delete_question DatabaseConnection method it returns a response
         :param qn_id:
         :return: {"Message": "Question successfully deleted"}
         """
-        data_storage.delete_question(qn_id)
-        return make_response(jsonify({"Message": "Question successfully deleted"}), 200)
+        return data_storage.delete_question(qn_id)
 
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
@@ -150,27 +141,29 @@ class AnswerManager(Resource):
         This method receives a question id then inserts the answer into a database under that particular question id
         :return: {'message': 'Answer added'}
         """
+        post_data = request.json.get('answers')
+        if "answers" not in request.json or post_data.isspace() or request.json['answers'] == "":
+            return answer_bad_request("Error")
+
         answer = request.json['answers']
-        data_storage.insert_answers(answer, qn_id)
-        return make_response(jsonify({'message': 'Answer added'}), 201)
+        return data_storage.insert_answers(answer, qn_id)
 
 
 api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
 
 
 class AnswerUpdateManager(Resource):
-    """This class holds the API endpoint to mark an answer as accepted"""
+    """This class holds the API endpoint to mark an answer as accepted or update the answer"""
 
     def put(self, qn_id, answer_id):
         """
-        This method receives the question id and answer id to trace the answer
-        then updates the answer's status from null to accepted
+        This method receives the question id and answer id then through the mark_answer DatabaseConnection method,
+        it returns a response
         :param qn_id:
         :param answer_id:
         :return: {'message': 'Answer successfully chosen as preferred'}, 200
         """
-        data_storage.mark_answer(qn_id, answer_id)
-        return make_response(jsonify({'message': 'Answer successfully chosen as preferred'}), 200)
+        return data_storage.mark_answer(qn_id, answer_id)
 
 
 api.add_resource(AnswerUpdateManager, '/questions/<int:qn_id>/answers/<int:answer_id>')
