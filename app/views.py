@@ -2,7 +2,6 @@ from flask_restful import Resource
 from flask_restful import Api
 from flask import Blueprint
 from flask import request
-from app import create_app
 # from app.data import qns_data
 from app.errors import *
 # from app.models import QuestionsModel
