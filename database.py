@@ -10,18 +10,17 @@ class DatabaseConnection(object):
                 database="run", user="calvin", password="310892", host="127.0.0.1", port="5432")
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
-            print("Yes")
+            print("Successfully connected to the database")
         except:
             print ("No connection to the database")
 
     def create_table_users(self):
         """ create user table"""
-        user_table = "CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, " \
+        user_table = "CREATE TABLE users (user_id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE NOT NULL, " \
                      "email_address VARCHAR(255) UNIQUE NOT NULL, " \
-                     "password VARCHAR(50) NOT NULL);"
+                     "password VARCHAR(255) NOT NULL);"
         self.cursor.execute(user_table)
         self.connection.commit()
-        print ("users table successfully created")
         # self.connection.close()
 
     def create_table_questions(self):
@@ -31,7 +30,6 @@ class DatabaseConnection(object):
                          "question_details VARCHAR(255) NULL);"
         self.cursor.execute(question_table)
         self.connection.commit()
-        print("questions table successfully created")
         # self.connection.close()
 
     def create_table_answers(self):
@@ -43,12 +41,11 @@ class DatabaseConnection(object):
         self.connection.commit()
         # self.connection.close()
 
-    def insert_users(self, username, emailaddress, password):
+    def insert_users(self, username, email_address, password):
         """create users"""
-        insert_user = "INSERT INTO users(username, emailaddress, password) VALUES(%s, %s, %s);"
-        self.cursor.execute(insert_user, (username, emailaddress, password))
+        insert_user = "INSERT INTO users(username, email_address, password) VALUES(%s, %s, %s);"
+        self.cursor.execute(insert_user, (username, email_address, password))
         self.connection.commit()
-        print ("User successfully added")
         # self.connection.close()
 
     def insert_questions(self, question_title, question_details):
@@ -113,7 +110,7 @@ class DatabaseConnection(object):
         print ("Answer successfully marked")
         # self.connection.close()
 
-#
+
 # if __name__ == "__main__":
 #     database = DatabaseConnection()
 #     database.create_table_users()
