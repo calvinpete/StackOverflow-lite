@@ -101,6 +101,15 @@ class SingleQuestionManager(Resource):
         """
         return jsonify(data.select_one_question(qn_id))
 
+    def delete(self, qn_id):
+        """
+        This method receives an id of the question then deletes the question from the database
+        :param qn_id:
+        :return: {"Message": "Question successfully deleted"}
+        """
+        data.delete_question(qn_id)
+        return make_response(jsonify({"Message": "Question successfully deleted"}))
+
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
 
@@ -119,3 +128,16 @@ class AnswerManager(Resource):
 
 
 api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
+
+
+class AnswerUpdateManager(Resource):
+    """This class holds the API endpoint to mark an answer as accepted"""
+
+    def Put(self, qn_id, answer_id):
+        """
+        This method receives the question id and answer id to trace the answer
+        then updates the answer's status from null to accepted
+        :param qn_id:
+        :param answer_id:
+        :return:
+        """
