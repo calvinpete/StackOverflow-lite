@@ -2,16 +2,18 @@ from flask_restful import Resource
 from flask_restful import Api
 from flask import Blueprint
 from flask import request
+from app import create_app
 # from app.data import qns_data
 from app.errors import *
 # from app.models import QuestionsModel
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
-# import jwt
-# import datetime
+import jwt
+import datetime
 
 # import json
 data = DatabaseConnection()
+
 
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
@@ -40,12 +42,21 @@ api.add_resource(NewUserManager, '/auth/signup')
 class UserManager(Resource):
     """This class holds the endpoint to post log in details
     """
-
-    def post(self):
-        """"""
-
-
-api.add_resource(UserManager, '/auth/login')
+#
+#     def post(self):
+#         """"""
+#         authorize = request.authorization
+#
+#         if authorize and authorize.password == 'password':
+#             token = jwt.encode({"username": authorize.username,
+#                                 "expiry":  datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
+#                                app.config['SECRET_KEY'])
+#             return jsonify({'token': token})
+#
+#         return make_response(jsonify({"Error": "Login Required"}), 401)
+#
+#
+# api.add_resource(UserManager, '/auth/login')
 
 
 class QuestionManager(Resource):

@@ -62,6 +62,13 @@ class DatabaseConnection(object):
         self.connection.commit()
         # self.connection.close()
 
+    def select_users(self):
+        """get all users"""
+        select_users = "SELECT * FROM users;"
+        self.cursor.execute(select_users)
+        all_users = self.cursor.fetchall()
+
+
     def select_all_questions(self):
         """get all questions"""
         select_questions = "SELECT * FROM questions;"
