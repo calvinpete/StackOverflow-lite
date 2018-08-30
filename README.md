@@ -64,10 +64,10 @@ nosetests --with-coverage --cover-package=app
 |               Endpoint                           |          Functionality      |
 | -------------------------------------------------|:---------------------------:|
 | GET /questions                                   | Fetch all questions         |
-| GET /questions/<questionId>                      | Fetch a specific question   |
-| POST /questions/<questionId>/answers             | Add a question              |
-| POST /questions/<questionId>/answers             | Add an answer               |
-| DELETE /questions/<questionId>                   | Delete a question           |
+| GET /questions/questionId                        | Fetch a specific question   |
+| POST /questions/questionId/answers               | Add a question              |
+| POST /questions/questionId/answers               | Add an answer               |
+| DELETE /questions/questionId                     | Delete a question           |
 | POST /auth/signup                                | Create an Account           |
 | POST /auth/login                                 | Signup                      |
 
