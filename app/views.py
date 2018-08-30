@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from flask_restful import Api
+from flask import Flask
 from flask import Blueprint
 from flask import request
 # from app.data import qns_data
@@ -8,16 +9,36 @@ from app.errors import *
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
+# from functools import wraps
 import jwt
 import datetime
 
 # import json
-data = DatabaseConnection()
+app = Flask(__name__)
+app.config['SECRET_KEY'] = "3c489cn389wdk2rr20sie"
 
+data_storage = DatabaseConnection()
 
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
 api = Api(main_blueprint, errors=errors)
+
+
+# def token_required(f):
+#     @wraps(f)
+#     def decorated(*args, **kwargs):
+#         token = None
+#
+#         if 'x-access-token' in request.headers:
+#             token = request.headers['x-access-token']
+#
+#         if not token:
+#             return make_response(jsonify({'message': 'Token is missing'}), 401)
+#
+#         try:
+#             data = jwt.decode(token, app.config['SECRET_KEY'])
+#         except:
+#             return make_response(jsonify({"Message": "Token is invalid"}), 401)
 
 
 class NewUserManager(Resource):
@@ -32,30 +53,37 @@ class NewUserManager(Resource):
         username = request.json["username"]
         email_address = request.json["emailaddress"]
         hashed_password = generate_password_hash(request.json["password"])
-        data.insert_users(username, email_address, hashed_password)
+        data_storage.insert_users(username, email_address, hashed_password)
         return make_response(jsonify({'message': 'New User created'}), 201)
 
 
 api.add_resource(NewUserManager, '/auth/signup')
 
-#
-# # class UserManager(Resource):
-# #     """This class holds the endpoint to post log in details
-# #     """
-# #     def post(self):
-# #         """This checks the username and password used to access then returns a token if they match """
-# #         authorize = request.authorization
-# #
-# #         if authorize and authorize.password == 'password':
-# #             token = jwt.encode({"username": authorize.username,
-# #                                 "expiry":  datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
-# #                                app.config['SECRET_KEY'])
-# #             return jsonify({'token': token})
-# #
-# #         return make_response(jsonify({"Error": "Login Required"}), 401)
-#
-#
-# api.add_resource(UserManager, '/auth/login')
+
+class UserManager(Resource):
+    """This class holds the endpoint to post log in details
+    """
+
+    def post(self):
+        """This checks the username and password used to access then returns a token if they match """
+        authorize = request.authorization
+
+        # user = data.select_users()
+        # for key in data.select_users():
+        #     if authorize.username != key:
+        #         return make_response(jsonify({"Error": "User not foundout"}), 401)
+
+        for key, value in data_storage.select_users().items():
+            if authorize.username == key and check_password_hash(value, authorize.password):
+                token = jwt.encode({"username": authorize.username,
+                                    "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
+                                   app.config['SECRET_KEY'])
+                return jsonify({'token': token.decode('UTF-8')})
+        else:
+            return make_response(jsonify({"Message": "Please kindly input the correct username and password"}), 401)
+
+
+api.add_resource(UserManager, '/auth/login')
 
 
 class QuestionManager(Resource):
@@ -69,7 +97,7 @@ class QuestionManager(Resource):
         This method selects all questions from the database and returns them in a dictionary
         :return: questions
         """
-        return jsonify(data.select_all_questions())
+        return jsonify(data_storage.select_all_questions())
 
     def post(self):
         """
@@ -81,7 +109,7 @@ class QuestionManager(Resource):
         #     return question_bad_request("Error")
         qn_title = request.json['qn_title']
         qn_details = request.json.get('qn_details', "")
-        data.insert_questions(qn_title, qn_details)
+        data_storage.insert_questions(qn_title, qn_details)
         return make_response(jsonify({'message': 'Question posted'}), 201)
 
 
@@ -99,7 +127,7 @@ class SingleQuestionManager(Resource):
         :param: qn_id
         :return: question in JSON format
         """
-        return jsonify(data.select_one_question(qn_id))
+        return jsonify(data_storage.select_one_question(qn_id))
 
     def delete(self, qn_id):
         """
@@ -107,7 +135,7 @@ class SingleQuestionManager(Resource):
         :param qn_id:
         :return: {"Message": "Question successfully deleted"}
         """
-        data.delete_question(qn_id)
+        data_storage.delete_question(qn_id)
         return make_response(jsonify({"Message": "Question successfully deleted"}), 200)
 
 
@@ -123,7 +151,7 @@ class AnswerManager(Resource):
         :return: {'message': 'Answer added'}
         """
         answer = request.json['answers']
-        data.insert_answers(answer, qn_id)
+        data_storage.insert_answers(answer, qn_id)
         return make_response(jsonify({'message': 'Answer added'}), 201)
 
 
@@ -141,7 +169,7 @@ class AnswerUpdateManager(Resource):
         :param answer_id:
         :return: {'message': 'Answer successfully chosen as preferred'}, 200
         """
-        data.mark_answer(qn_id, answer_id)
+        data_storage.mark_answer(qn_id, answer_id)
         return make_response(jsonify({'message': 'Answer successfully chosen as preferred'}), 200)
 
 

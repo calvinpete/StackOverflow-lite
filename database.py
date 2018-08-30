@@ -62,17 +62,14 @@ class DatabaseConnection(object):
         self.connection.commit()
         # self.connection.close()
 
-    def select_users(self, username, password):
+    def select_users(self):
         """get all users"""
-        select_users = "SELECT * FROM users WHERE username = %s AND password = %s;"
-        self.cursor.execute(select_users, [username, password])
+        select_users = "SELECT * FROM users;"
+        self.cursor.execute(select_users)
         all_users = self.cursor.fetchall()
         users = {}
         for row in all_users:
-            users = {
-                "username": row[2],
-                "password": row[4]
-            }
+            users[row[1]] = row[3]
         return users
 
     def select_all_questions(self):
@@ -126,4 +123,5 @@ class DatabaseConnection(object):
 
 # if __name__ == "__main__":
 #     database = DatabaseConnection()
-#     database.mark_answer(6, 9)
+#     database.select_users()
+#     # database.insert_users("jade", "play4@gmail.com", "1234")
