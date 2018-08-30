@@ -7,6 +7,8 @@ from app.errors import *
 # from app.models import QuestionsModel
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
+# import jwt
+# import datetime
 
 # import json
 data = DatabaseConnection()
@@ -98,19 +100,9 @@ class AnswerManager(Resource):
 
     def post(self, qn_id):
         """
-        This method receives a question id then inserts the answer into a database under a question id
+        This method receives a question id then inserts the answer into a database under that particular question id
         :return: {'message': 'Answer added'}, 201
         """
-        # data = request.get_json()
-        # answer = data["answers"]
-        # if answer.isspace() or answer == "":
-        #     return answer_bad_request("Error")
-        # for question in qns_data:
-        #     if qn_id == question.__getattribute__("qn_id"):
-        #         question.__dict__["answers"].append(request.json['answers'])
-        #         return make_response(jsonify({'message': 'Answer added'}), 201)
-        # else:
-        #     return question_not_found("Error")
         answer = request.json['answers']
         data.insert_answers(answer, qn_id)
         return make_response(jsonify({'message': 'Answer added'}), 201)
