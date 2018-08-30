@@ -7,6 +7,7 @@ from app.errors import *
 # from app.models import QuestionsModel
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 import jwt
 import datetime
 
@@ -37,22 +38,21 @@ class NewUserManager(Resource):
 
 api.add_resource(NewUserManager, '/auth/signup')
 
-
-class UserManager(Resource):
-    """This class holds the endpoint to post log in details
-    """
 #
-#     def post(self):
-#         """"""
-#         authorize = request.authorization
-#
-#         if authorize and authorize.password == 'password':
-#             token = jwt.encode({"username": authorize.username,
-#                                 "expiry":  datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
-#                                app.config['SECRET_KEY'])
-#             return jsonify({'token': token})
-#
-#         return make_response(jsonify({"Error": "Login Required"}), 401)
+# # class UserManager(Resource):
+# #     """This class holds the endpoint to post log in details
+# #     """
+# #     def post(self):
+# #         """This checks the username and password used to access then returns a token if they match """
+# #         authorize = request.authorization
+# #
+# #         if authorize and authorize.password == 'password':
+# #             token = jwt.encode({"username": authorize.username,
+# #                                 "expiry":  datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
+# #                                app.config['SECRET_KEY'])
+# #             return jsonify({'token': token})
+# #
+# #         return make_response(jsonify({"Error": "Login Required"}), 401)
 #
 #
 # api.add_resource(UserManager, '/auth/login')
@@ -108,7 +108,7 @@ class SingleQuestionManager(Resource):
         :return: {"Message": "Question successfully deleted"}
         """
         data.delete_question(qn_id)
-        return make_response(jsonify({"Message": "Question successfully deleted"}))
+        return make_response(jsonify({"Message": "Question successfully deleted"}), 200)
 
 
 api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
@@ -120,7 +120,7 @@ class AnswerManager(Resource):
     def post(self, qn_id):
         """
         This method receives a question id then inserts the answer into a database under that particular question id
-        :return: {'message': 'Answer added'}, 201
+        :return: {'message': 'Answer added'}
         """
         answer = request.json['answers']
         data.insert_answers(answer, qn_id)
@@ -133,11 +133,16 @@ api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
 class AnswerUpdateManager(Resource):
     """This class holds the API endpoint to mark an answer as accepted"""
 
-    def Put(self, qn_id, answer_id):
+    def put(self, qn_id, answer_id):
         """
         This method receives the question id and answer id to trace the answer
         then updates the answer's status from null to accepted
         :param qn_id:
         :param answer_id:
-        :return:
+        :return: {'message': 'Answer successfully chosen as preferred'}, 200
         """
+        data.mark_answer(qn_id, answer_id)
+        return make_response(jsonify({'message': 'Answer successfully chosen as preferred'}), 200)
+
+
+api.add_resource(AnswerUpdateManager, '/questions/<int:qn_id>/answers/<int:answer_id>')

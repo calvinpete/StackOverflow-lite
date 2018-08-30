@@ -62,12 +62,18 @@ class DatabaseConnection(object):
         self.connection.commit()
         # self.connection.close()
 
-    def select_users(self):
+    def select_users(self, username, password):
         """get all users"""
-        select_users = "SELECT * FROM users;"
-        self.cursor.execute(select_users)
+        select_users = "SELECT * FROM users WHERE username = %s AND password = %s;"
+        self.cursor.execute(select_users, [username, password])
         all_users = self.cursor.fetchall()
-
+        users = {}
+        for row in all_users:
+            users = {
+                "username": row[2],
+                "password": row[4]
+            }
+        return users
 
     def select_all_questions(self):
         """get all questions"""
@@ -109,10 +115,10 @@ class DatabaseConnection(object):
         print ("Question successfully deleted")
         # self.connection.close()
 
-    def mark_answer(self, answer_id):
+    def mark_answer(self, qn_id, answer_id):
         """mark an answer as preferred"""
-        update_answer = "UPDATE answer_table SET status = 'preferred' WHERE answer_id = %s"
-        self.cursor.execute(update_answer, [answer_id])
+        update_answer = "UPDATE answer_table SET status = 'ACCEPTED' WHERE question_id = %s AND answer_id = %s;"
+        self.cursor.execute(update_answer, [qn_id, answer_id])
         self.connection.commit()
         print ("Answer successfully marked")
         # self.connection.close()
@@ -120,4 +126,4 @@ class DatabaseConnection(object):
 
 # if __name__ == "__main__":
 #     database = DatabaseConnection()
-#     database.create_table_users()
+#     database.mark_answer(6, 9)
