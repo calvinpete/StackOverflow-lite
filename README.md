@@ -1,9 +1,8 @@
 
-[![Build Status](https://travis-ci.org/calvinpete/StackOverflow-lite.svg?branch=API)](https://travis-ci.org/calvinpete/StackOverflow-lite)              [![Coverage Status](https://coveralls.io/repos/github/calvinpete/StackOverflow-lite/badge.svg?branch=API)](https://coveralls.io/github/calvinpete/StackOverflow-lite?branch=API)                    <a href="https://codeclimate.com/github/calvinpete/StackOverflow-lite/maintainability"><img src="https://api.codeclimate.com/v1/badges/c55bf3e0bac3e3a2b0e9/maintainability" /></a>
 
 # StackOverflow-lite API Endpoints
 
-The api endpoints enable you to view all questions, post a question, view a single question and post an answer to a question.
+The api endpoints enable you to view all questions, post a question, view a single question, post an answer to a question asked, delete a question you posted and accept an answer to your posted question
 
 ## Getting Started
 
@@ -62,17 +61,22 @@ nosetests --with-coverage --cover-package=app
 
 ### Features
 
-|               Endpoint                 |          Functionality      |
-| -------------------------------------- |:---------------------------:|
-| GET /questions                         | Fetch all questions         |
-| GET /questions/<questionId>            | Fetch a specific question   |
-| POST /questions/<questionId>/answers   | Add a question              |
-| POST /questions/<questionId>/answers   | Add an answer               |
+|               Endpoint                           |          Functionality      |
+| -------------------------------------------------|:---------------------------:|
+| GET /questions                                   | Fetch all questions         |
+| GET /questions/<questionId>                      | Fetch a specific question   |
+| POST /questions/<questionId>/answers             | Add a question              |
+| POST /questions/<questionId>/answers             | Add an answer               |
+| DELETE /questions/<questionId>                   | Delete a question           |
+| POST /auth/signup                                | Create an Account           |
+| POST /auth/login                                 | Signup                      |
+
+
 
 
 ## Deployment
 
-The app is deployed on this [link](https://stackoverflowlitev1-api.herokuapp.com/api/v1/questions)
+The app is deployed on this [link](https://stackoverflw-litev2.herokuapp.com/api/v1/)
 
 ## Built With
 
