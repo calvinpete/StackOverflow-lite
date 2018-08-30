@@ -2,10 +2,11 @@ from flask_restful import Resource
 from flask_restful import Api
 from flask import Blueprint
 from flask import request
-from app.data import qns_data
+# from app.data import qns_data
 from app.errors import *
 # from app.models import QuestionsModel
 from database import DatabaseConnection
+from werkzeug.security import generate_password_hash
 
 # import json
 data = DatabaseConnection()
@@ -13,6 +14,36 @@ data = DatabaseConnection()
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
 api = Api(main_blueprint, errors=errors)
+
+
+class NewUserManager(Resource):
+    """This class holds the endpoint to post signup details
+    """
+
+    def post(self):
+        """This method receives the details of one signing up
+        checks if they exist already in the database.
+        If they do, it responds with an error message.
+        if not, they are inserted into a database"""
+        username = request.json["username"]
+        email_address = request.json["emailaddress"]
+        hashed_password = generate_password_hash(request.json["password"])
+        data.insert_users(username, email_address, hashed_password)
+        return make_response(jsonify({'message': 'New User created'}), 201)
+
+
+api.add_resource(NewUserManager, '/auth/signup')
+
+
+class UserManager(Resource):
+    """This class holds the endpoint to post log in details
+    """
+
+    def post(self):
+        """"""
+
+
+api.add_resource(UserManager, '/auth/login')
 
 
 class QuestionManager(Resource):
