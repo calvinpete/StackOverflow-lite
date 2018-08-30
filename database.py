@@ -94,6 +94,7 @@ class DatabaseConnection(object):
         self.cursor.execute(select_question, [qn_id])
         a_question = self.cursor.fetchall()
         answer_list = []
+        single_qn = {}
         for row in a_question:
             answer_list.append({"answer": row[2], "status": row[3]})
             single_qn = {
