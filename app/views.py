@@ -22,21 +22,22 @@ main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 api = Api(main_blueprint, errors=errors, catch_all_404s=True)
 
 
-# def token_required(f):
-#     @wraps(f)
-#     def decorated(*args, **kwargs):
-#         token = None
-#
-#         if 'x-access-token' in request.headers:
-#             token = request.headers['x-access-token']
-#
-#         if not token:
-#             return make_response(jsonify({'message': 'Token is missing'}), 401)
-#
-#         try:
-#             data = jwt.decode(token, app.config['SECRET_KEY'])
-#         except:
-#             return make_response(jsonify({"Message": "Token is invalid"}), 401)
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+
+        if not token:
+            return make_response(jsonify({'message': 'Token is missing'}), 401)
+
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            logged_user = data["username"]
+        except:
+            return make_response(jsonify({"Message": "Token is invalid"}), 401)
 
 
 class NewUserManager(Resource):
