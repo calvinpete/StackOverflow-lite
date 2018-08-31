@@ -76,7 +76,7 @@ class DatabaseConnection:
         insert_user = "INSERT INTO users(username, email_address, password) VALUES(%s, %s, %s);"
         self.cursor.execute(insert_user, (username, email_address, password))
         self.connection.commit()
-        return make_response(jsonify({'message': 'New User created'}), 201)
+        return {'message': 'New User created'}, 201
 
     def insert_questions(self, question_title, question_details):
         """This method receives the question_title and question details
@@ -99,18 +99,9 @@ class DatabaseConnection:
             insert_answers = "INSERT INTO answer_table(answer, question_id) VALUES(%s, %s);"
             self.cursor.execute(insert_answers, (answer, qn_id))
             self.connection.commit()
-            return make_response(jsonify({'message': 'Answer added'}), 201)
+            return {'message': 'Answer added'}, 201
         else:
             return question_not_found("Error")
-
-    def select_current_user(self, user):
-        """This method receives the decoded token then
-        matches its first entry in the tuple with the username to trace the logged in user"""
-        select_username = "SELECT * FROM users WHERE username = %s;"
-        self.cursor.execute(select_username, (user,))
-        user_check = self.cursor.fetchone()
-        if user_check:
-            return current_user
 
     def select_all_questions(self):
         """This method selects all the rows in the questions table and then
@@ -169,7 +160,7 @@ class DatabaseConnection:
             delete_question = "DELETE FROM questions WHERE question_id = %s;"
             self.cursor.execute(delete_question, [qn_id])
             self.connection.commit()
-            return make_response(jsonify({"Message": "Question successfully deleted"}), 200)
+            return {"Message": "Question successfully deleted"}, 200
         else:
             return question_not_found("Error")
 
@@ -191,7 +182,7 @@ class DatabaseConnection:
             update_answer = "UPDATE answer_table SET status = 'ACCEPTED' WHERE question_id = %s AND answer_id = %s;"
             self.cursor.execute(update_answer, [qn_id, answer_id])
             self.connection.commit()
-            return make_response(jsonify({'message': 'Answer successfully chosen as preferred'}), 200)
+            return {'message': 'Answer successfully chosen as preferred'}, 200
         else:
             return answer_not_found("Error")
 

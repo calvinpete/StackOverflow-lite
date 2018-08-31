@@ -32,7 +32,7 @@ def answer_not_found(message):
     :param : {message: "Answer doe not exist"}, 404
     :return:
     """
-    response = make_response(jsonify({message: "Answer doe not exist"}), 404)
+    response = {message: "Answer doe not exist"}, 404
     return response
 
 
@@ -42,7 +42,7 @@ def question_bad_request(message):
     :param message:
     :return response:
     """
-    response = make_response(jsonify({message: "Invalid question"}), 400)
+    response = {message: "Invalid question"}, 400
     return response
 
 
@@ -52,7 +52,7 @@ def answer_bad_request(message):
     :param message:
     :return response:
     """
-    response = make_response(jsonify({message: "Invalid answer"}), 400)
+    response = {message: "Invalid answer"}, 400
     return response
 
 
@@ -62,6 +62,6 @@ def user_exists(message):
     :param message:
     :return response:
     """
-    response = make_response(jsonify({message: "user already exists"}), 409)
+    response = {message: "user already exists"}, 409
     return response
 

@@ -49,9 +49,9 @@ class UserManager(Resource):
                 token = jwt.encode({"username": authorize.username,
                                     "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=20)},
                                    app.config['SECRET_KEY'])
-                return jsonify({'token': token.decode('UTF-8')})
+                return {'token': token.decode('UTF-8')}
         else:
-            return make_response(jsonify({"Message": "Please kindly input the correct username and password"}), 401)
+            return {"Message": "Please kindly input the correct username and password"}, 401
 
 
 api.add_resource(UserManager, '/auth/login')
