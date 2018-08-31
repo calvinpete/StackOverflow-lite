@@ -15,6 +15,7 @@ Git
 Flask
 Flask Restful
 Virtual Enviroment
+PostgreSQL
 ```
 
 ### Starting the application
