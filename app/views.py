@@ -7,11 +7,9 @@ from app.errors import *
 from database import DatabaseConnection
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
-# from functools import wraps
 import jwt
 import datetime
 
-# import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "3c489cn389wdk2rr20sie"
 
@@ -20,24 +18,6 @@ data_storage = DatabaseConnection()
 main_blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 
 api = Api(main_blueprint, errors=errors, catch_all_404s=True)
-
-
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        token = None
-
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
-
-        if not token:
-            return make_response(jsonify({'message': 'Token is missing'}), 401)
-
-        try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-            logged_user = data["username"]
-        except:
-            return make_response(jsonify({"Message": "Token is invalid"}), 401)
 
 
 class NewUserManager(Resource):
