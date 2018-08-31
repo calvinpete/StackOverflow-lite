@@ -103,6 +103,25 @@ class DatabaseConnection:
         else:
             return question_not_found("Error")
 
+    def select_users(self):
+        """get all users"""
+        select_users = "SELECT * FROM users;"
+        self.cursor.execute(select_users)
+        all_users = self.cursor.fetchall()
+        users = {}
+        for row in all_users:
+            users[row[1]] = row[3]
+        return users
+
+    # def select_current_user(self, user):
+    #     """This method receives the decoded token then
+    #     matches its first entry in the tuple with the username to trace the logged in user"""
+    #     select_username = "SELECT * FROM users WHERE username = %s;"
+    #     self.cursor.execute(select_username, (user,))
+    #     user_check = self.cursor.fetchone()
+    #     if user_check:
+    #         return current_user
+
     def select_all_questions(self):
         """This method selects all the rows in the questions table and then
         returns a nested dictionary of questions with the question id as the key."""
@@ -141,7 +160,7 @@ class DatabaseConnection:
                     "qn_details": row[1],
                     "answers": answer_list
                 }
-            return jsonify(single_qn)
+            return single_qn
         else:
             return question_not_found("Error")
 

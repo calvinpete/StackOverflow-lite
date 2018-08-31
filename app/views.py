@@ -68,7 +68,7 @@ class QuestionManager(Resource):
         This method selects all questions from the database and returns them in a dictionary
         :return: questions
         """
-        return jsonify(data_storage.select_all_questions())
+        return data_storage.select_all_questions()
 
     def post(self):
         """
@@ -82,7 +82,7 @@ class QuestionManager(Resource):
         qn_title = request.json['qn_title']
         qn_details = request.json.get('qn_details', "")
         data_storage.insert_questions(qn_title, qn_details)
-        return make_response(jsonify({'message': 'Question posted'}), 201)
+        return {'message': 'Question posted'}, 201
 
 
 api.add_resource(QuestionManager, '/questions')
